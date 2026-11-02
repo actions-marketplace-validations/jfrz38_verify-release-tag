@@ -11,12 +11,13 @@
   "packageManager": "pnpm@12.3.4",
   "scripts": {
     "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/index.js",
+    "bundle:check": "pnpm build && git diff --exit-code -- dist/index.js",
     "format": "prettier --write src tests package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
     "format:check": "prettier --check src tests package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
     "lint": "eslint .",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit",
-    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm bundle:check"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
