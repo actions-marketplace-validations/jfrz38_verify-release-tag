@@ -1,4 +1,4 @@
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -23,10 +23,9 @@ describe("GitClient", () => {
   test("finds the repository root from a worktree directory", async () => {
     const repository = await createRepository();
     const client = new GitClient(repository.directory);
+    const repositoryRoot = await realpath(repository.directory);
 
-    await expect(client.findRepositoryRoot()).resolves.toBe(
-      path.resolve(repository.directory),
-    );
+    await expect(client.findRepositoryRoot()).resolves.toBe(repositoryRoot);
   });
 
   test("rejects a directory outside a Git repository", async () => {

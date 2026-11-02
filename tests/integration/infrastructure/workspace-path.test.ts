@@ -1,4 +1,11 @@
-import { mkdtemp, mkdir, rm, symlink, writeFile } from "node:fs/promises";
+import {
+  mkdtemp,
+  mkdir,
+  realpath,
+  rm,
+  symlink,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -29,10 +36,11 @@ describe("resolveWorkspacePath", () => {
     const manifest = path.join(workspace, "packages", "app", "package.json");
     await mkdir(path.dirname(manifest), { recursive: true });
     await writeFile(manifest, "{}", "utf8");
+    const resolvedManifest = await realpath(manifest);
 
     await expect(
       resolveWorkspacePath(workspace, "packages/app/package.json"),
-    ).resolves.toBe(manifest);
+    ).resolves.toBe(resolvedManifest);
   });
 
   test("rejects a lexical escape from the workspace", async () => {
