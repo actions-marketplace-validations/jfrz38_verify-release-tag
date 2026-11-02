@@ -18,21 +18,10 @@ export default tseslint.config(
         {
           sourceFolder: "src",
           layers: {
-            domain: {
-              aliases: ["domain"],
-              allowedDependencies: ["domain"],
-            },
-            application: {
-              aliases: ["application"],
-              allowedDependencies: ["application", "domain"],
-            },
             infrastructure: {
               aliases: ["infrastructure", "action"],
-              allowedDependencies: ["infrastructure", "application", "domain"],
             },
           },
-          ignoreTypeImports: false,
-          ignoreExternalDependencies: true,
         },
       ],
     },
