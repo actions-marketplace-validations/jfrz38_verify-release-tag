@@ -1,0 +1,31 @@
+{
+  "name": "verify-release-tag",
+  "version": "0.0.0-development",
+  "description": "Read-only GitHub Action that verifies release tag consistency.",
+  "private": true,
+  "type": "commonjs",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@12.3.4",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/index.js",
+    "format": "prettier --write src package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
+    "format:check": "prettier --check src package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
+    "esbuild": "0.28.2",
+    "eslint": "10.14.0",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.0.5"
+  }
+}
