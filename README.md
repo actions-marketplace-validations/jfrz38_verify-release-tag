@@ -97,6 +97,21 @@ verification.
 Both lightweight and annotated tags are supported. A tag that exists but does
 not resolve to a commit is reported as invalid rather than absent.
 
+## Development
+
+GNU Make is the project's operational entry point. Run `make` or `make help`
+to list the available commands. A typical local setup is:
+
+```sh
+make install
+make validate
+```
+
+Use `make format` to apply formatting and `make test` to run the complete test
+suite. The existing `pnpm` scripts remain as compatibility wrappers around the
+same Make targets. On Windows, use an environment that provides GNU Make and
+`awk`, such as Git Bash with those tools installed.
+
 ## License
 
 [MIT](LICENSE)
