@@ -10,15 +10,15 @@
   },
   "packageManager": "pnpm@12.3.4",
   "scripts": {
-    "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/index.js",
-    "bundle:check": "pnpm build && git diff --exit-code -- dist/index.js",
-    "format": "prettier --write .github src tests README.md package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
-    "format:check": "prettier --check .github src tests README.md package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
-    "lint": "eslint .",
-    "test": "vitest run --passWithNoTests",
-    "test:cross-platform": "vitest run tests/unit tests/integration",
-    "typecheck": "tsc --noEmit",
-    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm bundle:check"
+    "build": "make build",
+    "bundle:check": "make bundle-check",
+    "format": "make format",
+    "format:check": "make format-check",
+    "lint": "make lint",
+    "test": "make test",
+    "test:cross-platform": "make test-cross-platform",
+    "typecheck": "make typecheck",
+    "validate": "make validate"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

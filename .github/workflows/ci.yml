@@ -38,11 +38,8 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Validate source and bundle
-        run: pnpm validate
+      - name: Install and validate
+        run: make ci
 
   cross-platform-tests:
     name: Cross-platform tests (${{ matrix.os }})
@@ -70,8 +67,13 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install and test through Make
+        if: runner.os != 'Windows'
+        run: make ci-cross-platform
 
-      - name: Run unit and integration tests
-        run: pnpm test:cross-platform
+      # GNU Make is not part of the guaranteed windows-latest toolset.
+      - name: Install and test on Windows
+        if: runner.os == 'Windows'
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec vitest run tests/unit tests/integration
