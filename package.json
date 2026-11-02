@@ -12,10 +12,11 @@
   "scripts": {
     "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/index.js",
     "bundle:check": "pnpm build && git diff --exit-code -- dist/index.js",
-    "format": "prettier --write src tests package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
-    "format:check": "prettier --check src tests package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
+    "format": "prettier --write .github src tests package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
+    "format:check": "prettier --check .github src tests package.json pnpm-workspace.yaml tsconfig.json vitest.config.mts eslint.config.mjs .prettierrc.json",
     "lint": "eslint .",
     "test": "vitest run --passWithNoTests",
+    "test:cross-platform": "vitest run tests/unit tests/integration",
     "typecheck": "tsc --noEmit",
     "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm bundle:check"
   },
