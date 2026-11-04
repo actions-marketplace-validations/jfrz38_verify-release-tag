@@ -1,5 +1,10 @@
 # Verify Release Tag
 
+[![CI](https://github.com/jfrz38/verify-release-tag/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jfrz38/verify-release-tag/actions/workflows/ci.yml)
+[![GitHub release](https://img.shields.io/github/v/release/jfrz38/verify-release-tag?display_name=tag)](https://github.com/jfrz38/verify-release-tag/releases)
+[![GitHub Marketplace](https://img.shields.io/badge/marketplace-verify--release--tag-blue?logo=githubactions)](https://github.com/marketplace/actions/verify-release-tag)
+[![License](https://img.shields.io/github/license/jfrz38/verify-release-tag)](LICENSE)
+
 A read-only GitHub Action that verifies whether a release tag is consistent
 with a version declared in a JSON manifest and, optionally, with an expected
 Git commit.
@@ -31,7 +36,7 @@ steps:
       fetch-depth: 0
 
   - id: release-tag
-    uses: jfrz38/verify-release-tag@<commit-sha>
+    uses: jfrz38/verify-release-tag@v0
     with:
       version-file: package.json
       tag-prefix: v
@@ -40,7 +45,9 @@ steps:
 ```
 
 This configuration allows the tag to be absent, but requires an existing tag
-to point to the workflow commit. Pin Actions to immutable commit SHAs.
+to point to the workflow commit. The `v0` alias follows the latest compatible
+`0.x` release; `v0.1.0` identifies the first exact release. For the strongest
+supply-chain guarantee, pin Actions to immutable commit SHAs.
 
 ## Inputs
 
@@ -111,6 +118,21 @@ Use `make format` to apply formatting and `make test` to run the complete test
 suite. The existing `pnpm` scripts remain as compatibility wrappers around the
 same Make targets. On Windows, use an environment that provides GNU Make and
 `awk`, such as Git Bash with those tools installed.
+
+## Release flow
+
+Releases use the version declared in `package.json` as their source of truth.
+Run the `Bump Version` workflow to prepare a reviewed version pull request
+against `develop`, then promote `develop` to `main`. After the complete CI
+workflow succeeds on `main`, the release workflow:
+
+1. verifies the exact `vX.Y.Z` tag against the validated commit;
+2. creates the immutable exact tag when it is absent;
+3. updates the matching major alias, such as `v0`;
+4. creates the GitHub Release if it does not already exist.
+
+Repeating the workflow for the same commit is safe. A reused version that
+already points to another commit fails before the major alias can move.
 
 ## License
 
