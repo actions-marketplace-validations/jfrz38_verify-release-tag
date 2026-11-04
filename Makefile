@@ -32,14 +32,11 @@ lint: ## Lint the project
 typecheck: ## Type-check without emitting files
 	$(PNPM) exec tsc --noEmit
 
-.PHONY: test test-cross-platform
+.PHONY: test
 test: ## Run the complete test suite
 	$(PNPM) exec vitest run --passWithNoTests
 
-test-cross-platform: ## Run unit and integration tests
-	$(PNPM) exec vitest run tests/unit tests/integration
-
-.PHONY: validate ci ci-cross-platform
+.PHONY: validate ci
 validate: ## Run all validation gates
 	$(MAKE) format-check
 	$(MAKE) lint
@@ -50,7 +47,3 @@ validate: ## Run all validation gates
 ci: ## Install dependencies and run all validation gates
 	$(MAKE) install
 	$(MAKE) validate
-
-ci-cross-platform: ## Install dependencies and run cross-platform tests
-	$(MAKE) install
-	$(MAKE) test-cross-platform
