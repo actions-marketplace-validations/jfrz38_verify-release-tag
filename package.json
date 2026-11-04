@@ -37,7 +37,6 @@
     "format:check": "make format-check",
     "lint": "make lint",
     "test": "make test",
-    "test:cross-platform": "make test-cross-platform",
     "typecheck": "make typecheck",
     "validate": "make validate"
   },
