@@ -1,10 +1,31 @@
 {
   "name": "verify-release-tag",
-  "version": "0.0.0-development",
+  "version": "0.1.0",
   "description": "Read-only GitHub Action that verifies release tag consistency.",
   "private": true,
-  "type": "commonjs",
   "license": "MIT",
+  "author": {
+    "name": "José F. Ruiz",
+    "url": "https://github.com/jfrz38"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jfrz38/verify-release-tag.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jfrz38/verify-release-tag/issues"
+  },
+  "homepage": "https://github.com/jfrz38/verify-release-tag#readme",
+  "keywords": [
+    "github-action",
+    "github-actions",
+    "release",
+    "release-tag",
+    "semver",
+    "tag-validation"
+  ],
+  "main": "dist/index.js",
+  "type": "commonjs",
   "engines": {
     "node": ">=24"
   },
